@@ -209,32 +209,33 @@ function OthersAlsoBoughtSection({ onPlay }) {
   )
 }
 
-function UserLevelSection({ onPlay }) {
-  const [level, setLevel] = useState(null)
-  const filtered = level ? featuredVideos.filter(v => userLevels.find(l => l.id === level)?.videos.includes(v.id)) : []
+function UserLevelSection() {
   return (
     <section className="py-5 px-4 bg-gray-50">
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center gap-2 mb-1">
-          <Award size={18} className="text-ipru-blue" />
-          <h2 className="text-lg font-bold text-navy">Your Learning Path</h2>
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-2">
+            <Award size={18} className="text-ipru-blue" />
+            <h2 className="text-lg font-bold text-navy">Guides</h2>
+          </div>
+          <Link href="/academy/learn" className="text-ipru-orange text-sm font-semibold hover:underline flex items-center gap-1">
+            View all guides <ChevronRight size={14} />
+          </Link>
         </div>
         <p className="text-gray-400 text-xs mb-4">Content curated for where you are in your insurance journey</p>
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div className="grid grid-cols-3 gap-3">
           {userLevels.map(l => (
-            <button key={l.id} onClick={() => setLevel(l.id === level ? null : l.id)}
-              className={`p-4 rounded-xl border text-left transition-all ${level === l.id ? 'border-ipru-maroon bg-ipru-maroon/5 shadow-md' : 'border-gray-200 bg-white hover:border-ipru-orange'}`}>
+            <Link key={l.id} href="/academy/learn"
+              className="p-4 rounded-xl border border-gray-200 bg-white hover:border-ipru-orange hover:shadow-md text-left transition-all block">
               <span className="text-2xl block mb-2">{l.icon}</span>
               <p className="text-navy font-bold text-sm">{l.label}</p>
               <p className="text-gray-400 text-[10px]">{l.desc}</p>
-            </button>
+              <span className="text-ipru-maroon text-xs font-semibold mt-2 inline-flex items-center gap-1">
+                Start guide <ChevronRight size={12} />
+              </span>
+            </Link>
           ))}
         </div>
-        {level && filtered.length > 0 && (
-          <div className="grid gap-4 sm:grid-cols-3">
-            {filtered.map(v => <VideoCard key={v.id} video={v} onPlay={onPlay} />)}
-          </div>
-        )}
       </div>
     </section>
   )
@@ -334,7 +335,7 @@ export default function AcademyPage() {
       {isLoggedIn && <OthersAlsoBoughtSection onPlay={play} />}
 
       {/* Logged-in: Learning Path */}
-      {isLoggedIn && <UserLevelSection onPlay={play} />}
+      {isLoggedIn && <UserLevelSection />}
 
       {/* Video library — Category filter */}
       <section className="py-5 px-4">
@@ -348,14 +349,27 @@ export default function AcademyPage() {
                 }`}>{cat}</button>
             ))}
           </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-4">
-            {filteredVideos.map(v => <VideoCard key={v.id} video={v} onPlay={play} />)}
+          <div className="flex gap-4 overflow-x-auto pb-2 mt-4" style={{ scrollbarWidth: 'none' }}>
+            {filteredVideos.map(v => (
+              <div key={v.id} className="flex-shrink-0" style={{ width: '260px' }}>
+                <VideoCard video={v} onPlay={play} />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
+      {/* Non-logged-in: Shorts — right after featured videos */}
+      {!isLoggedIn && (
+        <section className="py-5 px-4 bg-gray-50">
+          <div className="max-w-5xl mx-auto">
+            <ShortsStrip reels={shortReels} label="Quick Bites" size="large" />
+          </div>
+        </section>
+      )}
+
       {/* Non-logged-in: Browse by series */}
-      {!isLoggedIn && (<section className="py-5 px-4 bg-gray-50">
+      {!isLoggedIn && (<section className="py-5 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-lg font-bold text-navy mb-3">Browse by Series</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -378,7 +392,7 @@ export default function AcademyPage() {
       </section>)}
 
       {/* Non-logged-in: Policy & Regulatory updates */}
-      {!isLoggedIn && (<section className="py-5 px-4">
+      {!isLoggedIn && (<section className="py-5 px-4 bg-gray-50">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-lg font-bold text-navy mb-3">Policy & Regulatory Updates</h2>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -403,15 +417,6 @@ export default function AcademyPage() {
           </div>
         </div>
       </section>)}
-
-      {/* Shorts — non-logged-in only (logged-in has it above coverage gaps) */}
-      {!isLoggedIn && (
-        <section className="py-5 px-4 bg-gray-50">
-          <div className="max-w-5xl mx-auto">
-            <ShortsStrip reels={shortReels} label="Quick Bites" />
-          </div>
-        </section>
-      )}
 
       {/* Non-logged-in: India's protection gap */}
       {!isLoggedIn && (<section className="py-8 px-4" style={{ background: 'linear-gradient(135deg, #002244 0%, #003B71 100%)' }}>
