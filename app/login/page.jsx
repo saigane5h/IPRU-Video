@@ -107,7 +107,6 @@ export default function LoginPage() {
   }
 
   const heroVideos = featuredVideos.slice(0, 3)
-  const explainerVideos = featuredVideos.slice(3, 9)
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -269,22 +268,39 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Video explainers section */}
+      {/* Product overview + video carousel */}
       <div className="bg-gray-50 py-8">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-5">
-            <div>
-              <h2 className="text-xl font-bold text-navy">Understand Before You Buy</h2>
-              <p className="text-gray-400 text-sm mt-0.5">Watch video explainers to make informed decisions</p>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <div className="lg:col-span-2">
+              <h2 className="text-xl font-bold text-navy mb-2">iProtect Smart — Term Life Insurance</h2>
+              <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                Secure your family&apos;s future with India&apos;s most trusted term plan. Get life cover up to ₹2 Crore at affordable premiums starting ₹490/month. With a 97.8% claim settlement ratio, your family is in safe hands.
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /><span className="text-gray-600">Entry age: 18–65 years</span></div>
+                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /><span className="text-gray-600">Cover up to ₹2 Cr</span></div>
+                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /><span className="text-gray-600">Tax benefits under 80C & 10(10D)</span></div>
+                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /><span className="text-gray-600">Critical illness rider available</span></div>
+              </div>
             </div>
+            <div className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col justify-center">
+              <p className="text-gray-400 text-xs mb-1">Starting from</p>
+              <p className="text-navy text-2xl font-bold">₹490<span className="text-sm font-normal text-gray-400">/month</span></p>
+              <p className="text-gray-400 text-xs mt-1 mb-4">For ₹1 Cr cover, age 25, non-smoker</p>
+              <button className="w-full bg-ipru-maroon text-white font-bold text-sm py-2.5 rounded-lg hover:bg-ipru-red transition-colors">Talk to an Advisor</button>
+            </div>
+          </div>
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-lg font-bold text-navy">All Videos</h3>
             <Link href="/academy" className="text-ipru-orange text-sm font-semibold hover:underline flex items-center gap-1">
               View all <ChevronRight size={14} />
             </Link>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            {explainerVideos.map(v => (
-              <div key={v.id} onClick={() => play(v.gccId, v.title)} className="group cursor-pointer bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="relative" style={{ aspectRatio: '16/9' }}>
+          <div className="flex gap-4 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
+            {featuredVideos.map(v => (
+              <div key={v.id} onClick={() => play(v.gccId, v.title)} className="group cursor-pointer flex-shrink-0" style={{ width: '240px' }}>
+                <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: '16/9' }}>
                   <img src={v.thumbnail} alt={v.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <span className={`absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded ${v.tagColor}`}>{v.tag}</span>
@@ -293,9 +309,7 @@ export default function LoginPage() {
                     <span className="w-12 h-12 rounded-full bg-ipru-orange/90 flex items-center justify-center shadow-xl"><Play size={18} className="text-white ml-0.5" /></span>
                   </div>
                 </div>
-                <div className="p-3">
-                  <h3 className="text-sm font-semibold text-navy leading-snug group-hover:text-ipru-maroon transition-colors">{v.title}</h3>
-                </div>
+                <h3 className="text-xs font-semibold text-navy leading-snug mt-2 group-hover:text-ipru-maroon transition-colors">{v.title}</h3>
               </div>
             ))}
           </div>
