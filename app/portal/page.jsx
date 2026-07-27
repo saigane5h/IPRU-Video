@@ -55,7 +55,7 @@ function SearchVideoBar({ onPlay }) {
     : []
   return (
     <div className="relative">
-      <div className="flex gap-3">
+      <div className="flex gap-2">
         <div className="flex-1 relative">
           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
           <input value={q} onChange={e => { setQ(e.target.value); setOpen(true) }} onFocus={() => setOpen(true)}
@@ -66,8 +66,9 @@ function SearchVideoBar({ onPlay }) {
               className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/70"><X size={14} /></button>
           )}
         </div>
-        <button onClick={() => setOpen(true)} className="bg-ipru-orange text-white rounded-full px-6 font-semibold text-sm flex items-center gap-2 whitespace-nowrap">
-          <Play size={14} /> Video answers
+        <button onClick={() => { if (!q.trim()) { setQ(' '); } setOpen(true) }}
+          className="w-11 h-11 flex-shrink-0 bg-ipru-orange text-white rounded-full flex items-center justify-center hover:bg-amber-500 transition-colors" title="Video search">
+          <Play size={16} className="ml-0.5" />
         </button>
       </div>
       {open && results.length > 0 && (

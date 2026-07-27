@@ -45,9 +45,12 @@ function AcademyVideoOverlay({ videoId, title, onClose }) {
   )
 }
 
-function ShortsStrip({ reels, label }) {
+function ShortsStrip({ reels, label, size }) {
   const containerRef = useRef(null)
   const playerRef = useRef(null)
+  const isLarge = size === 'large'
+  const w = isLarge ? 160 : 120
+  const h = isLarge ? 270 : 200
   useEffect(() => {
     function init() {
       if (!containerRef.current || playerRef.current) return
@@ -66,20 +69,20 @@ function ShortsStrip({ reels, label }) {
       <div ref={containerRef} />
       <div className="flex items-center gap-2 mb-3">
         <span className="bg-ipru-maroon text-white text-xs font-bold px-2 py-0.5 rounded flex items-center gap-1"><Play size={10} /> Shorts</span>
-        <h3 className="font-bold text-navy">{label || 'Quick Bites'}</h3>
+        <h3 className={`font-bold text-navy ${isLarge ? 'text-lg' : ''}`}>{label || 'Quick Bites'}</h3>
       </div>
-      <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
+      <div className={`flex ${isLarge ? 'gap-4' : 'gap-3'} overflow-x-auto pb-2`} style={{ scrollbarWidth: 'none' }}>
         {reels.map((reel) => (
-          <div key={reel.id} onClick={() => open(reel.id)} className="group cursor-pointer flex-shrink-0" style={{ width: '120px' }}>
-            <div className="relative rounded-xl overflow-hidden" style={{ width: '120px', height: '200px', background: '#1a1a2e' }}>
-              <img src={vthumb(reel.id)} alt={reel.title} style={{ width: '120px', height: '200px', objectFit: 'cover' }}
+          <div key={reel.id} onClick={() => open(reel.id)} className="group cursor-pointer flex-shrink-0" style={{ width: `${w}px` }}>
+            <div className="relative rounded-xl overflow-hidden" style={{ width: `${w}px`, height: `${h}px`, background: '#1a1a2e' }}>
+              <img src={vthumb(reel.id)} alt={reel.title} style={{ width: `${w}px`, height: `${h}px`, objectFit: 'cover' }}
                 onError={e => { e.target.style.display = 'none' }} />
               <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/95 via-black/55 to-transparent pointer-events-none" />
               <span className="absolute top-2 right-2 bg-black/70 rounded px-1.5 py-0.5 text-[10px] text-white">{reel.duration}</span>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="w-10 h-10 rounded-full bg-white/25 border-2 border-white/50 flex items-center justify-center group-hover:bg-ipru-orange group-hover:border-ipru-orange transition-all"><Play size={14} className="text-white ml-0.5" /></span>
+                <span className={`${isLarge ? 'w-12 h-12' : 'w-10 h-10'} rounded-full bg-white/25 border-2 border-white/50 flex items-center justify-center group-hover:bg-ipru-orange group-hover:border-ipru-orange transition-all`}><Play size={isLarge ? 18 : 14} className="text-white ml-0.5" /></span>
               </div>
-              <p className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold leading-tight drop-shadow">{reel.title}</p>
+              <p className={`absolute bottom-2 left-2 right-2 text-white ${isLarge ? 'text-xs' : 'text-[11px]'} font-semibold leading-tight drop-shadow`}>{reel.title}</p>
             </div>
           </div>
         ))}
@@ -315,6 +318,15 @@ export default function AcademyPage() {
       {/* Logged-in: Your Policies */}
       {isLoggedIn && <YourPoliciesSection onPlay={play} />}
 
+      {/* Logged-in: Shorts — prominent placement */}
+      {isLoggedIn && (
+        <section className="py-5 px-4 bg-gray-50">
+          <div className="max-w-5xl mx-auto">
+            <ShortsStrip reels={shortReels} label="You might be missing out" size="large" />
+          </div>
+        </section>
+      )}
+
       {/* Logged-in: Coverage Gaps */}
       {isLoggedIn && <CoverageGapSection onPlay={play} />}
 
@@ -392,12 +404,14 @@ export default function AcademyPage() {
         </div>
       </section>)}
 
-      {/* Shorts */}
-      <section className="py-5 px-4 bg-gray-50">
-        <div className="max-w-5xl mx-auto">
-          <ShortsStrip reels={shortReels} label={isLoggedIn ? 'You might be missing out' : 'Quick Bites'} />
-        </div>
-      </section>
+      {/* Shorts — non-logged-in only (logged-in has it above coverage gaps) */}
+      {!isLoggedIn && (
+        <section className="py-5 px-4 bg-gray-50">
+          <div className="max-w-5xl mx-auto">
+            <ShortsStrip reels={shortReels} label="Quick Bites" />
+          </div>
+        </section>
+      )}
 
       {/* Non-logged-in: India's protection gap */}
       {!isLoggedIn && (<section className="py-8 px-4" style={{ background: 'linear-gradient(135deg, #002244 0%, #003B71 100%)' }}>
