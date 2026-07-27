@@ -292,7 +292,7 @@ function PortalDashboard() {
 
       {/* Dashboard welcome banner */}
       <div style={{ background: 'linear-gradient(135deg, #002244 0%, #003B71 100%)' }}>
-        <div className="max-w-7xl mx-auto px-6 py-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
           <div>
             <p className="text-white/60 text-sm">Welcome back,</p>
             <h1 className="text-white text-2xl font-bold">{user?.name}</h1>
@@ -304,9 +304,9 @@ function PortalDashboard() {
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-6 py-6">
         {/* Top row: Coverage wheel + Quick Links */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
           <div className="lg:col-span-2">
             <CoverageWheel />
           </div>
@@ -314,8 +314,8 @@ function PortalDashboard() {
         </div>
 
         {/* My Policies */}
-        <div className="mb-8">
-          <h2 className="text-navy font-bold text-lg mb-4 flex items-center gap-2">
+        <div className="mb-6">
+          <h2 className="text-navy font-bold text-lg mb-3 flex items-center gap-2">
             <FileText size={18} className="text-ipru-maroon" /> My Policy(ies)
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -324,7 +324,7 @@ function PortalDashboard() {
         </div>
 
         {/* Alerts + Shorts row */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
           <div className="lg:col-span-2">
             <AlertsSection />
           </div>
@@ -334,7 +334,7 @@ function PortalDashboard() {
         </div>
 
         {/* Product banner + Academy promo */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
           <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #F7941D 0%, #E8810B 100%)' }}>
             <div className="p-6 flex items-center justify-between">
               <div>

@@ -107,13 +107,13 @@ function VideoCard({ video, onPlay }) {
 
 function YourPoliciesSection({ onPlay }) {
   return (
-    <section className="py-8 px-4">
+    <section className="py-5 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-2 mb-1">
           <Shield size={18} className="text-ipru-maroon" />
-          <h2 className="text-xl font-bold text-navy">Your Policies</h2>
+          <h2 className="text-lg font-bold text-navy">Your Policies</h2>
         </div>
-        <p className="text-gray-400 text-sm mb-5">Watch video explainers for each of your active plans</p>
+        <p className="text-gray-400 text-xs mb-4">Watch video explainers for each of your active plans</p>
         <div className="grid gap-4 sm:grid-cols-2">
           {portalPolicies.map(p => (
             <div key={p.id} className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg transition-shadow">
@@ -129,7 +129,7 @@ function YourPoliciesSection({ onPlay }) {
                 <div><p className="text-gray-400 text-xs">Premium</p><p className="text-navy font-semibold">{p.premium}/{p.premiumCadence}</p></div>
               </div>
               <button onClick={() => onPlay(p.gccId, p.planName)} className="w-full flex items-center justify-center gap-2 bg-ipru-maroon/5 hover:bg-ipru-maroon/10 text-ipru-maroon text-sm font-semibold py-2.5 rounded-lg transition-colors">
-                <Play size={14} /> Watch Policy Explainer
+                <Play size={14} /> How are your funds performing
               </button>
             </div>
           ))}
@@ -141,13 +141,13 @@ function YourPoliciesSection({ onPlay }) {
 
 function CoverageGapSection({ onPlay }) {
   return (
-    <section className="py-8 px-4 bg-ipru-lightblue/50">
+    <section className="py-5 px-4 bg-ipru-lightblue/50">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-2 mb-1">
           <TrendingUp size={18} className="text-ipru-orange" />
-          <h2 className="text-xl font-bold text-navy">Coverage Gaps</h2>
+          <h2 className="text-lg font-bold text-navy">Coverage Gaps</h2>
         </div>
-        <p className="text-gray-400 text-sm mb-5">Areas where you may need additional protection</p>
+        <p className="text-gray-400 text-xs mb-4">Areas where you may need additional protection</p>
         <div className="grid gap-4 sm:grid-cols-3">
           {coverageGaps.map(gap => (
             <div key={gap.category} className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg transition-shadow">
@@ -176,13 +176,13 @@ function CoverageGapSection({ onPlay }) {
 
 function OthersAlsoBoughtSection({ onPlay }) {
   return (
-    <section className="py-8 px-4">
+    <section className="py-5 px-4">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-2 mb-1">
           <Star size={18} className="text-amber-500" />
-          <h2 className="text-xl font-bold text-navy">Others Also Added</h2>
+          <h2 className="text-lg font-bold text-navy">Others Also Added</h2>
         </div>
-        <p className="text-gray-400 text-sm mb-5">Popular add-ons among iProtect Smart holders like you</p>
+        <p className="text-gray-400 text-xs mb-4">Popular add-ons among iProtect Smart holders like you</p>
         <div className="grid gap-4 sm:grid-cols-2">
           {othersAlsoBought.map(rec => (
             <div key={rec.id} className="bg-white rounded-xl border border-gray-200 p-5 flex gap-4 hover:shadow-lg transition-shadow">
@@ -210,13 +210,13 @@ function UserLevelSection({ onPlay }) {
   const [level, setLevel] = useState(null)
   const filtered = level ? featuredVideos.filter(v => userLevels.find(l => l.id === level)?.videos.includes(v.id)) : []
   return (
-    <section className="py-8 px-4 bg-gray-50">
+    <section className="py-5 px-4 bg-gray-50">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center gap-2 mb-1">
           <Award size={18} className="text-ipru-blue" />
-          <h2 className="text-xl font-bold text-navy">Your Learning Path</h2>
+          <h2 className="text-lg font-bold text-navy">Your Learning Path</h2>
         </div>
-        <p className="text-gray-400 text-sm mb-5">Content curated for where you are in your insurance journey</p>
+        <p className="text-gray-400 text-xs mb-4">Content curated for where you are in your insurance journey</p>
         <div className="grid grid-cols-3 gap-3 mb-6">
           {userLevels.map(l => (
             <button key={l.id} onClick={() => setLevel(l.id === level ? null : l.id)}
@@ -281,30 +281,30 @@ export default function AcademyPage() {
 
       {/* Hero section */}
       <section className="relative overflow-hidden" style={{ background: isLoggedIn ? 'linear-gradient(135deg, #002244 0%, #003B71 100%)' : 'linear-gradient(135deg, #8B1A1A 0%, #B71C1C 30%, #003B71 100%)' }}>
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%)' }} />
-        </div>
-        <div className="relative max-w-5xl mx-auto px-6 py-12 md:py-16">
+        <div className="relative max-w-5xl mx-auto px-6 py-5 md:py-7">
           {isLoggedIn ? (
-            <div>
-              <p className="text-ipru-orange text-sm font-semibold mb-2">Welcome back, {auth.user.name}</p>
-              <h1 className="text-white text-3xl md:text-4xl font-bold leading-tight mb-3">
-                Your personalised<br />learning continues
-              </h1>
-              <p className="text-white/60 text-sm max-w-lg">Content curated based on your policies, coverage gaps, and learning history.</p>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-ipru-orange flex items-center justify-center text-white font-bold text-lg">{auth.user.name.charAt(0)}</div>
+                <div>
+                  <h1 className="text-white text-lg font-bold leading-tight">Welcome back, {auth.user.name}</h1>
+                  <p className="text-white/50 text-xs">Content curated for your policies and coverage gaps</p>
+                </div>
+              </div>
+              <Link href="/portal" className="text-ipru-orange text-sm font-semibold hover:underline flex items-center gap-1">My Dashboard <ChevronRight size={14} /></Link>
             </div>
           ) : (
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-3">
                 <BookOpen size={14} /> Powered by KPOINT
               </div>
-              <h1 className="text-white text-3xl md:text-5xl font-bold leading-tight mb-4">
-                Life insurance,<br />finally explained.
+              <h1 className="text-white text-2xl md:text-4xl font-bold leading-tight mb-3">
+                Life insurance, finally explained.
               </h1>
-              <p className="text-white/70 text-lg max-w-lg mx-auto mb-6">
+              <p className="text-white/70 text-base max-w-lg mx-auto mb-4">
                 Video guides, interactive explainers, and real talk — no jargon, no sales pitch.
               </p>
-              <Link href="/login" className="inline-flex items-center gap-2 bg-ipru-orange text-white font-bold text-sm px-8 py-3.5 rounded-lg hover:bg-amber-500 transition-colors">
+              <Link href="/login" className="inline-flex items-center gap-2 bg-ipru-orange text-white font-bold text-sm px-8 py-3 rounded-lg hover:bg-amber-500 transition-colors">
                 Login to personalise <ChevronRight size={16} />
               </Link>
             </div>
@@ -325,9 +325,9 @@ export default function AcademyPage() {
       {isLoggedIn && <UserLevelSection onPlay={play} />}
 
       {/* Video library — Category filter */}
-      <section className="py-8 px-4">
+      <section className="py-5 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-xl font-bold text-navy mb-4">{isLoggedIn ? 'All Videos' : 'Featured Videos'}</h2>
+          <h2 className="text-lg font-bold text-navy mb-3">{isLoggedIn ? 'All Videos' : 'Featured Videos'}</h2>
           <div className="flex gap-2 overflow-x-auto pb-3" style={{ scrollbarWidth: 'none' }}>
             {categories.map(cat => (
               <button key={cat} onClick={() => setActiveCategory(cat)}
@@ -343,9 +343,9 @@ export default function AcademyPage() {
       </section>
 
       {/* Non-logged-in: Browse by series */}
-      {!isLoggedIn && (<section className="py-8 px-4 bg-gray-50">
+      {!isLoggedIn && (<section className="py-5 px-4 bg-gray-50">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-xl font-bold text-navy mb-4">Browse by Series</h2>
+          <h2 className="text-lg font-bold text-navy mb-3">Browse by Series</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {videoSeries.map(series => (
               <div key={series.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
@@ -366,9 +366,9 @@ export default function AcademyPage() {
       </section>)}
 
       {/* Non-logged-in: Policy & Regulatory updates */}
-      {!isLoggedIn && (<section className="py-8 px-4">
+      {!isLoggedIn && (<section className="py-5 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-xl font-bold text-navy mb-4">Policy & Regulatory Updates</h2>
+          <h2 className="text-lg font-bold text-navy mb-3">Policy & Regulatory Updates</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             {policyVideos.slice(0, 4).map(v => (
               <div key={v.id} onClick={() => play(v.gccId, v.title)} className="bg-white rounded-xl border border-gray-200 p-5 flex gap-4 hover:shadow-lg transition-shadow cursor-pointer group">
@@ -393,17 +393,17 @@ export default function AcademyPage() {
       </section>)}
 
       {/* Shorts */}
-      <section className="py-8 px-4 bg-gray-50">
+      <section className="py-5 px-4 bg-gray-50">
         <div className="max-w-5xl mx-auto">
-          <ShortsStrip reels={shortReels} label={isLoggedIn ? 'Personalised for you' : 'Quick Bites'} />
+          <ShortsStrip reels={shortReels} label={isLoggedIn ? 'You might be missing out' : 'Quick Bites'} />
         </div>
       </section>
 
       {/* Non-logged-in: India's protection gap */}
-      {!isLoggedIn && (<section className="py-12 px-4" style={{ background: 'linear-gradient(135deg, #002244 0%, #003B71 100%)' }}>
+      {!isLoggedIn && (<section className="py-8 px-4" style={{ background: 'linear-gradient(135deg, #002244 0%, #003B71 100%)' }}>
         <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-white text-2xl font-bold mb-2">India&apos;s Protection Gap</h2>
-          <p className="text-white/50 text-sm mb-8 max-w-lg mx-auto">The numbers behind why insurance education matters more than ever.</p>
+          <h2 className="text-white text-xl font-bold mb-2">India&apos;s Protection Gap</h2>
+          <p className="text-white/50 text-sm mb-5 max-w-lg mx-auto">The numbers behind why insurance education matters more than ever.</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
               { num: '₹11T', label: 'Life insurance market size', sub: '₹11.2L Cr' },
@@ -422,10 +422,10 @@ export default function AcademyPage() {
       </section>)}
 
       {/* Non-logged-in: CTA */}
-      {!isLoggedIn && (<section className="py-10 px-4 bg-white">
+      {!isLoggedIn && (<section className="py-6 px-4 bg-white">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-navy mb-3">Ready to take control of your financial future?</h2>
-          <p className="text-gray-400 text-sm mb-6">Login to get personalised recommendations based on your policies and coverage.</p>
+          <h2 className="text-xl font-bold text-navy mb-2">Ready to take control of your financial future?</h2>
+          <p className="text-gray-400 text-sm mb-4">Login to get personalised recommendations based on your policies and coverage.</p>
           <Link href="/login" className="inline-flex items-center gap-2 bg-ipru-maroon text-white font-bold px-8 py-3.5 rounded-lg hover:bg-ipru-red transition-colors">
             Login Now <ArrowRight size={16} />
           </Link>
