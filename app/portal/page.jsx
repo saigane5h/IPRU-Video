@@ -5,7 +5,7 @@ import Script from 'next/script'
 import { useAuth } from '@/lib/auth'
 import RequireAuth from '@/components/ProtectedRoute'
 import { portalPolicies, portalUser, personalisedShorts, featuredVideos, policyVideos } from '@/lib/data'
-import { Search, Play, X, MessageSquareText, Home, CreditCard, Percent, User, ChevronRight, Shield, Bell, Menu, ArrowRight, TrendingUp, FileText } from 'lucide-react'
+import { Search, Play, X, MessageSquareText, Home, CreditCard, Percent, User, ChevronRight, Shield, Bell, Menu, ArrowRight, TrendingUp, FileText, LogOut } from 'lucide-react'
 
 const REELS_HOST = 'ktpl.kpoint.com'
 const vthumb = (id) => `https://${REELS_HOST}/media/data.ap-southeast-1.kpoint/ktpl.kpoint.in/ktpl.kpoint.com/kapsule/${id}/v4/i/vthumb.jpg`
@@ -107,9 +107,9 @@ function ShortsStrip() {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="bg-ipru-maroon text-white text-xs font-bold px-2 py-0.5 rounded flex items-center gap-1"><Play size={10} /> Shorts</span>
-          <h3 className="text-white font-bold">Personalised for you</h3>
+          <h3 className="text-navy font-bold">Personalised for you</h3>
         </div>
-        <Link href="/academy" className="text-white/50 text-sm hover:text-white">See all &rarr;</Link>
+        <Link href="/academy" className="text-ipru-orange text-sm font-semibold hover:underline">See all &rarr;</Link>
       </div>
       <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
         {personalisedShorts.map((reel) => (
@@ -169,24 +169,23 @@ function PolicyCard({ policy, onPlay }) {
   )
 }
 
-function QuickLinks() {
+function QuickLinksWeb() {
   const links = [
-    { icon: '📜', label: 'Premium Paid\nCertificate' },
-    { icon: '🔄', label: 'Standing\nInstruction' },
-    { icon: '👥', label: 'Update\nNominee Details' },
-    { icon: '📊', label: 'Fund\nValue' },
+    { icon: '📜', label: 'Premium Paid Certificate' },
+    { icon: '🔄', label: 'Standing Instruction' },
+    { icon: '👥', label: 'Update Nominee Details' },
+    { icon: '📊', label: 'Fund Value' },
+    { icon: '📄', label: 'Policy Document' },
+    { icon: '💳', label: 'Pay Premium' },
   ]
   return (
-    <div>
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-white font-bold">Quick Links</h3>
-        <span className="text-ipru-orange text-sm font-semibold">View All</span>
-      </div>
-      <div className="grid grid-cols-4 gap-3">
+    <div className="bg-white rounded-xl border border-gray-200 p-5">
+      <h3 className="text-navy font-bold mb-4">Quick Links</h3>
+      <div className="grid grid-cols-2 gap-3">
         {links.map(s => (
-          <div key={s.label} className="bg-white/5 border border-white/10 rounded-xl p-3 text-center hover:bg-white/10 transition-colors cursor-pointer">
-            <span className="text-2xl block mb-1">{s.icon}</span>
-            <span className="text-white/70 text-[10px] font-medium whitespace-pre-line leading-tight">{s.label}</span>
+          <div key={s.label} className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-ipru-orange hover:shadow-sm transition-all cursor-pointer group">
+            <span className="text-xl">{s.icon}</span>
+            <span className="text-navy text-sm font-medium group-hover:text-ipru-maroon">{s.label}</span>
           </div>
         ))}
       </div>
@@ -201,19 +200,19 @@ function AlertsSection() {
     { icon: '💰', title: 'Tax saving season', desc: 'Save tax under Section 80C with your ICICI Pru plan', action: 'Learn More', actionColor: 'bg-ipru-orange' },
   ]
   return (
-    <div>
-      <h3 className="text-white font-bold mb-3 flex items-center gap-2">
+    <div className="bg-white rounded-xl border border-gray-200 p-5">
+      <h3 className="text-navy font-bold mb-4 flex items-center gap-2">
         <Bell size={16} className="text-ipru-orange" /> Alerts & Notifications
       </h3>
       <div className="space-y-3">
         {alerts.map((a, i) => (
-          <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4 flex items-center gap-3">
+          <div key={i} className="border border-gray-100 rounded-lg p-4 flex items-center gap-3 hover:bg-gray-50 transition-colors">
             <span className="text-2xl flex-shrink-0">{a.icon}</span>
             <div className="flex-1 min-w-0">
-              <p className="text-white font-semibold text-sm">{a.title}</p>
-              <p className="text-white/50 text-xs truncate">{a.desc}</p>
+              <p className="text-navy font-semibold text-sm">{a.title}</p>
+              <p className="text-gray-400 text-xs truncate">{a.desc}</p>
             </div>
-            <button className={`${a.actionColor} text-white text-xs font-bold px-3 py-1.5 rounded-lg flex-shrink-0`}>{a.action}</button>
+            <button className={`${a.actionColor} text-white text-xs font-bold px-4 py-2 rounded-lg flex-shrink-0`}>{a.action}</button>
           </div>
         ))}
       </div>
@@ -230,13 +229,13 @@ function CoverageWheel() {
     { label: 'Health Insurance', covered: false },
   ]
   return (
-    <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-      <p className="text-white/50 text-xs font-semibold uppercase tracking-wider mb-1">Are you covered</p>
-      <h3 className="text-white font-bold text-lg mb-4">360 Degrees?</h3>
+    <div className="bg-white rounded-xl border border-gray-200 p-5">
+      <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">Are you covered</p>
+      <h3 className="text-navy font-bold text-lg mb-4">360 Degrees?</h3>
       <div className="flex flex-wrap gap-2">
         {items.map(item => (
           <span key={item.label} className={`text-xs font-medium px-3 py-1.5 rounded-full border ${
-            item.covered ? 'bg-green-500/10 border-green-500/30 text-green-400' : 'bg-red-500/10 border-red-500/30 text-red-400'
+            item.covered ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-600'
           }`}>
             {item.covered ? '✓' : '✗'} {item.label}
           </span>
@@ -255,79 +254,127 @@ function PortalDashboard() {
   const play = (videoId, title) => setOverlay({ videoId, title })
 
   return (
-    <div className="min-h-screen pb-20" style={{ background: 'linear-gradient(180deg, #002244 0%, #001a33 100%)' }}>
-      {/* Header */}
-      <header className="px-6 py-4 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #8B1A1A 0%, #B71C1C 40%, #002244 100%)' }}>
-        <div className="flex items-center gap-3">
-          <Menu size={20} className="text-white" />
-          <div>
-            <p className="text-white/60 text-xs">Welcome back</p>
-            <p className="text-white font-bold text-lg">{user?.name}</p>
+    <div className="min-h-screen" style={{ background: '#f5f6fa' }}>
+      {/* Top nav bar — web style */}
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-1">
+                <span className="text-ipru-blue font-extrabold text-xl tracking-tight">ICICI</span>
+                <span className="text-ipru-blue font-bold text-xl">Prudential</span>
+                <span className="text-ipru-orange text-[9px] font-bold tracking-wider ml-1">LIFE INSURANCE</span>
+              </div>
+              <nav className="hidden md:flex items-center gap-5">
+                <span className="text-sm text-ipru-maroon font-bold border-b-2 border-ipru-maroon pb-0.5 cursor-pointer">My Dashboard</span>
+                <span className="text-sm text-gray-500 font-medium cursor-pointer hover:text-ipru-blue">Pay Premium</span>
+                <span className="text-sm text-gray-500 font-medium cursor-pointer hover:text-ipru-blue">Fund Performance</span>
+                <span className="text-sm text-gray-500 font-medium cursor-pointer hover:text-ipru-blue">Claims</span>
+                <span className="text-sm text-gray-500 font-medium cursor-pointer hover:text-ipru-blue">Service</span>
+                <Link href="/academy" className="text-sm text-ipru-orange font-semibold hover:underline">Academy</Link>
+              </nav>
+            </div>
+            <div className="flex items-center gap-4">
+              <Bell size={18} className="text-gray-500 cursor-pointer hover:text-ipru-blue" />
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-ipru-blue flex items-center justify-center">
+                  <User size={16} className="text-white" />
+                </div>
+                <span className="text-sm text-navy font-semibold hidden md:inline">{user?.name}</span>
+              </div>
+              <button onClick={logout} className="text-gray-400 text-sm hover:text-ipru-maroon flex items-center gap-1">
+                <LogOut size={14} /> Logout
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <Link href="/academy" className="text-white/80 text-sm font-semibold hover:text-white">Academy</Link>
-          <button onClick={logout} className="text-white/60 text-sm hover:text-white">Logout</button>
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-4 py-6 space-y-6">
-        <SearchVideoBar onPlay={play} />
-        <CoverageWheel />
+      {/* Dashboard welcome banner */}
+      <div style={{ background: 'linear-gradient(135deg, #002244 0%, #003B71 100%)' }}>
+        <div className="max-w-7xl mx-auto px-6 py-8 flex items-center justify-between">
+          <div>
+            <p className="text-white/60 text-sm">Welcome back,</p>
+            <h1 className="text-white text-2xl font-bold">{user?.name}</h1>
+            <p className="text-white/40 text-xs mt-1">Last login: {user?.lastLogin}</p>
+          </div>
+          <div className="w-96">
+            <SearchVideoBar onPlay={play} />
+          </div>
+        </div>
+      </div>
+
+      <main className="max-w-7xl mx-auto px-6 py-8">
+        {/* Top row: Coverage wheel + Quick Links */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="lg:col-span-2">
+            <CoverageWheel />
+          </div>
+          <QuickLinksWeb />
+        </div>
 
         {/* My Policies */}
-        <div>
-          <h2 className="text-white font-bold text-lg mb-3 flex items-center gap-2">
-            <FileText size={18} /> My Policy(ies)
+        <div className="mb-8">
+          <h2 className="text-navy font-bold text-lg mb-4 flex items-center gap-2">
+            <FileText size={18} className="text-ipru-maroon" /> My Policy(ies)
           </h2>
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {portalPolicies.map(p => <PolicyCard key={p.id} policy={p} onPlay={play} />)}
           </div>
         </div>
 
-        <QuickLinks />
-        <AlertsSection />
-        <ShortsStrip />
-
-        {/* Product banner */}
-        <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #F7941D 0%, #E8810B 100%)' }}>
-          <div className="p-5 flex items-center justify-between">
-            <div>
-              <p className="text-white/80 text-xs font-semibold uppercase tracking-wider mb-1">Featured Product</p>
-              <h3 className="text-white font-bold text-lg">ICICI Pru Guaranteed Income for Tomorrow</h3>
-              <p className="text-white/70 text-sm mt-1">Guaranteed returns + life cover</p>
-              <button className="mt-3 bg-white text-ipru-maroon text-xs font-bold px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors">Know More</button>
-            </div>
-            <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-              <span className="text-3xl">💰</span>
-            </div>
+        {/* Alerts + Shorts row */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="lg:col-span-2">
+            <AlertsSection />
+          </div>
+          <div className="bg-white rounded-xl border border-gray-200 p-5">
+            <ShortsStrip />
           </div>
         </div>
 
-        {/* Academy promo */}
-        <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-          <p className="text-ipru-orange font-bold text-lg mb-1">Looking to Crack the Code of Insurance?</p>
-          <p className="text-white/60 text-sm mb-3">Check out our Academy for guides, video explainers, and FAQs.</p>
-          <Link href="/academy" className="inline-flex items-center gap-2 bg-ipru-blue text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-800 transition-colors">
-            Head over there now! <ArrowRight size={14} />
-          </Link>
+        {/* Product banner + Academy promo */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #F7941D 0%, #E8810B 100%)' }}>
+            <div className="p-6 flex items-center justify-between">
+              <div>
+                <p className="text-white/80 text-xs font-semibold uppercase tracking-wider mb-1">Featured Product</p>
+                <h3 className="text-white font-bold text-lg">ICICI Pru Guaranteed Income for Tomorrow</h3>
+                <p className="text-white/70 text-sm mt-1">Guaranteed returns + life cover</p>
+                <button className="mt-3 bg-white text-ipru-maroon text-xs font-bold px-5 py-2.5 rounded-lg hover:bg-gray-100 transition-colors">Know More</button>
+              </div>
+              <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
+                <span className="text-4xl">💰</span>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #002244 0%, #003B71 100%)' }}>
+            <div className="p-6">
+              <p className="text-ipru-orange font-bold text-lg mb-1">Looking to Crack the Code of Insurance?</p>
+              <p className="text-white/60 text-sm mb-4">Check out our Academy for guides, video explainers, and FAQs.</p>
+              <Link href="/academy" className="inline-flex items-center gap-2 bg-ipru-orange text-white text-sm font-semibold px-6 py-2.5 rounded-lg hover:bg-amber-500 transition-colors">
+                Visit Academy <ArrowRight size={14} />
+              </Link>
+            </div>
+          </div>
         </div>
       </main>
 
-      {/* Bottom nav */}
-      <nav className="fixed bottom-0 inset-x-0 bg-white border-t border-gray-200 z-50">
-        <div className="max-w-3xl mx-auto flex items-center justify-around py-2">
-          <button className="flex flex-col items-center gap-0.5 px-3 py-1 text-ipru-blue"><Home size={20} /><span className="text-[10px] font-medium">Home</span></button>
-          <button className="flex flex-col items-center gap-0.5 px-3 py-1 text-gray-400"><CreditCard size={20} /><span className="text-[10px] font-medium">Pay Premium</span></button>
-          <button className="flex flex-col items-center gap-0.5 px-3 py-1 text-gray-400"><Percent size={20} /><span className="text-[10px] font-medium">Offers</span></button>
-          <button className="flex flex-col items-center gap-0.5 px-3 py-1 text-gray-400"><User size={20} /><span className="text-[10px] font-medium">Profile</span></button>
+      {/* Footer */}
+      <footer className="border-t border-gray-200 bg-white py-5 px-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-ipru-blue font-extrabold text-sm">ICICI Prudential</span>
+            <span className="text-ipru-orange text-[8px] font-bold tracking-wider">LIFE INSURANCE</span>
+          </div>
+          <span className="text-xs text-gray-400">IRDAI Reg. No. 105 | CIN: L66010MH2000PLC127837</span>
         </div>
-      </nav>
+      </footer>
 
       {/* Floating chat */}
-      <div className="fixed bottom-20 right-4 flex items-center gap-2 z-40">
+      <div className="fixed bottom-6 right-6 flex items-center gap-2 z-40">
         <span className="bg-ipru-darkblue text-white text-xs rounded-full px-3 py-1.5 shadow-lg">Need Help?</span>
-        <button className="w-12 h-12 rounded-full bg-ipru-orange flex items-center justify-center shadow-xl">
+        <button className="w-12 h-12 rounded-full bg-ipru-orange flex items-center justify-center shadow-xl hover:scale-110 transition-transform">
           <MessageSquareText size={20} className="text-white" />
         </button>
       </div>
