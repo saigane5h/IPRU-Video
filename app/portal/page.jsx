@@ -107,7 +107,7 @@ function ShortsStrip() {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="bg-ipru-maroon text-white text-xs font-bold px-2 py-0.5 rounded flex items-center gap-1"><Play size={10} /> Shorts</span>
-          <h3 className="text-navy font-bold">Personalised for you</h3>
+          <h3 className="text-navy font-bold">You might be missing out</h3>
         </div>
         <Link href="/academy" className="text-ipru-orange text-sm font-semibold hover:underline">See all &rarr;</Link>
       </div>
@@ -157,7 +157,7 @@ function PolicyCard({ policy, onPlay }) {
         <div className="flex items-center justify-between pt-2 border-t border-gray-100">
           <button className="text-ipru-maroon text-sm font-semibold hover:underline">View Details</button>
           <div className="flex items-center gap-2 group/explainer">
-            <span className="hidden sm:inline-block bg-gray-100 text-gray-600 text-[11px] font-semibold rounded-full px-2.5 py-1">Policy Explainer</span>
+            <span className="hidden sm:inline-block bg-gray-100 text-gray-600 text-[11px] font-semibold rounded-full px-2.5 py-1">How are your funds performing</span>
             <button onClick={() => onPlay(policy.gccId, policy.planName)}
               className="relative w-10 h-10 rounded-full bg-ipru-orange flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
               <Play size={16} className="text-white ml-0.5" />

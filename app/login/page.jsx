@@ -48,6 +48,7 @@ export default function LoginPage() {
               <span className="text-sm text-gray-700 font-medium cursor-pointer hover:text-ipru-blue">Claims</span>
               <span className="text-sm text-gray-700 font-medium cursor-pointer hover:text-ipru-blue">Library</span>
               <span className="text-sm text-gray-700 font-medium cursor-pointer hover:text-ipru-blue">Service</span>
+              <Link href="/academy" className="text-sm text-ipru-blue font-semibold cursor-pointer hover:text-ipru-orange">Academy</Link>
             </nav>
 
             {/* Login dropdown */}
