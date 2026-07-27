@@ -205,7 +205,7 @@ export default function LoginPage() {
                 ))}
               </div>
               <div className="flex flex-wrap gap-3">
-                <button className="bg-white text-ipru-maroon font-bold text-sm px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">Buy Now</button>
+                <button className="bg-white text-ipru-maroon font-bold text-sm px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">Talk to an Advisor</button>
                 <button className="border-2 border-white text-white font-bold text-sm px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">Know More</button>
               </div>
             </div>

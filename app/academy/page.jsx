@@ -318,7 +318,10 @@ export default function AcademyPage() {
       {/* Logged-in: Your Policies */}
       {isLoggedIn && <YourPoliciesSection onPlay={play} />}
 
-      {/* Logged-in: Shorts — prominent placement */}
+      {/* Logged-in: Coverage Gaps */}
+      {isLoggedIn && <CoverageGapSection onPlay={play} />}
+
+      {/* Logged-in: Shorts — after coverage gaps */}
       {isLoggedIn && (
         <section className="py-5 px-4 bg-gray-50">
           <div className="max-w-5xl mx-auto">
@@ -326,9 +329,6 @@ export default function AcademyPage() {
           </div>
         </section>
       )}
-
-      {/* Logged-in: Coverage Gaps */}
-      {isLoggedIn && <CoverageGapSection onPlay={play} />}
 
       {/* Logged-in: Others Also Bought */}
       {isLoggedIn && <OthersAlsoBoughtSection onPlay={play} />}
