@@ -146,7 +146,7 @@ function PolicyCard({ policy, onPlay }) {
         </div>
       ) : (
         <>
-          <img src={vthumb(policy.gccId)} alt={policy.planName} className="absolute inset-0 w-full h-full object-cover"
+          <img src={policy.thumbnail || vthumb(policy.gccId)} alt={policy.planName} className="absolute inset-0 w-full h-full object-cover"
             onError={e => { e.target.style.display = 'none' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,15,35,0.95) 0%, rgba(0,15,35,0.75) 50%, rgba(0,15,35,0.4) 100%)' }} />
           <div className="relative p-5 flex flex-col justify-between h-full" style={{ minHeight: '260px' }}>

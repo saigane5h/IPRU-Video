@@ -120,7 +120,7 @@ function PolicyVideoCard({ policy, onPlay }) {
   }
   return (
     <div className="relative rounded-xl overflow-hidden cursor-pointer group" style={{ minHeight: '200px' }} onClick={() => setPlaying(true)}>
-      <img src={vthumb(policy.gccId)} alt={policy.planName} className="absolute inset-0 w-full h-full object-cover"
+      <img src={policy.thumbnail || vthumb(policy.gccId)} alt={policy.planName} className="absolute inset-0 w-full h-full object-cover"
         onError={e => { e.target.style.display = 'none' }} />
       <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,15,35,0.95) 0%, rgba(0,15,35,0.7) 50%, rgba(0,15,35,0.35) 100%)' }} />
       <div className="relative p-4 flex flex-col justify-between h-full" style={{ minHeight: '200px' }}>
@@ -172,7 +172,7 @@ function CoverageGapCard({ gap, onPlay }) {
         </div>
       ) : (
         <>
-          <img src={vthumb(gap.gccId)} alt={gap.category} className="absolute inset-0 w-full h-full object-cover"
+          <img src={gap.thumbnail || vthumb(gap.gccId)} alt={gap.category} className="absolute inset-0 w-full h-full object-cover"
             onError={e => { e.target.style.display = 'none' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,15,35,0.95) 0%, rgba(0,15,35,0.7) 50%, rgba(0,15,35,0.3) 100%)' }} />
           <div className="relative p-4 flex flex-col justify-between h-full" style={{ minHeight: '220px' }}>
