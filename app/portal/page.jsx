@@ -133,39 +133,50 @@ function ShortsStrip() {
 }
 
 function PolicyCard({ policy, onPlay }) {
-  const typeColor = policy.type === 'TERM' ? 'text-blue-600 bg-blue-50 border-blue-200' : 'text-green-600 bg-green-50 border-green-200'
+  const [playing, setPlaying] = useState(false)
+  const typeColor = policy.type === 'TERM' ? 'bg-blue-500' : 'bg-green-500'
+  const handlePlay = () => {
+    setPlaying(true)
+  }
   return (
-    <div className="relative bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-      <div className="h-1.5" style={{ background: 'linear-gradient(90deg, #8B1A1A, #F7941D)' }} />
-      <div className="p-5">
-        <div className="flex items-start justify-between mb-3">
-          <div>
-            <span className="inline-block bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full mb-2">{policy.status}</span>
-            <h3 className="text-navy font-bold text-sm leading-snug">{policy.planName}</h3>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Shield size={16} className="text-ipru-blue" />
-            <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${typeColor}`}>{policy.type}</span>
-          </div>
+    <div className="relative rounded-2xl overflow-hidden shadow-sm border border-gray-100" style={{ minHeight: '260px' }}>
+      {playing ? (
+        <div className="w-full h-full" style={{ aspectRatio: '16/9' }}>
+          <GCCVideoPlayer key={policy.gccId} videoId={policy.gccId} />
         </div>
-        <div className="grid grid-cols-2 gap-3 text-sm mb-3">
-          <div><p className="text-gray-400 text-xs">Insured name</p><p className="text-navy font-semibold text-sm">{policy.insuredName}</p></div>
-          <div><p className="text-gray-400 text-xs">Policy number</p><p className="text-navy font-semibold text-sm">{policy.policyNo}</p></div>
-          <div><p className="text-gray-400 text-xs">Sum Assured</p><p className="text-navy font-bold text-base">{policy.sumAssured}</p></div>
-          <div><p className="text-gray-400 text-xs">Premium</p><p className="text-navy font-semibold text-sm">{policy.premium} / {policy.premiumCadence}</p></div>
-        </div>
-        {policy.nudge && <div className="bg-green-50 border border-green-200 text-green-800 text-xs rounded-lg px-3 py-2 mb-3 flex items-center gap-2"><TrendingUp size={14} />{policy.nudge}</div>}
-        <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-          <button className="text-ipru-maroon text-sm font-semibold hover:underline">View Details</button>
-          <div className="flex items-center gap-2 group/explainer">
-            <span className="hidden sm:inline-block bg-gray-100 text-gray-600 text-[11px] font-semibold rounded-full px-2.5 py-1">How are your funds performing</span>
-            <button onClick={() => onPlay(policy.gccId, policy.planName)}
-              className="relative w-10 h-10 rounded-full bg-ipru-orange flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-              <Play size={16} className="text-white ml-0.5" />
-            </button>
+      ) : (
+        <>
+          <img src={vthumb(policy.gccId)} alt={policy.planName} className="absolute inset-0 w-full h-full object-cover"
+            onError={e => { e.target.style.display = 'none' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,15,35,0.95) 0%, rgba(0,15,35,0.75) 50%, rgba(0,15,35,0.4) 100%)' }} />
+          <div className="relative p-5 flex flex-col justify-between h-full" style={{ minHeight: '260px' }}>
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{policy.status}</span>
+                  <span className={`${typeColor} text-white text-[10px] font-bold px-2 py-0.5 rounded-full`}>{policy.type}</span>
+                </div>
+                <h3 className="text-white font-bold text-base">{policy.planName}</h3>
+              </div>
+              <button onClick={handlePlay}
+                className="w-12 h-12 rounded-full bg-ipru-orange flex items-center justify-center shadow-xl hover:scale-110 transition-transform flex-shrink-0">
+                <Play size={20} className="text-white ml-0.5" />
+              </button>
+            </div>
+            <div>
+              {policy.nudge && <div className="bg-green-500/20 text-green-300 text-xs rounded-lg px-3 py-1.5 mb-3 flex items-center gap-2"><TrendingUp size={12} />{policy.nudge}</div>}
+              <div className="grid grid-cols-2 gap-2 mb-3">
+                <div><p className="text-white/40 text-[10px]">Sum Assured</p><p className="text-white font-bold text-sm">{policy.sumAssured}</p></div>
+                <div><p className="text-white/40 text-[10px]">Premium</p><p className="text-white font-semibold text-sm">{policy.premium}/{policy.premiumCadence}</p></div>
+              </div>
+              <div className="flex items-center justify-between">
+                <button className="text-ipru-orange text-xs font-semibold hover:underline">View Details</button>
+                <span className="text-white/30 text-[10px]">▶ Watch your plan explained in 3 min</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </div>
   )
 }

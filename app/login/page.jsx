@@ -5,7 +5,7 @@ import Script from 'next/script'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth'
 import { featuredVideos, shortReels } from '@/lib/data'
-import { Eye, EyeOff, ChevronRight, ChevronDown, Play, X, Shield, TrendingUp, Heart, Wallet } from 'lucide-react'
+import { Eye, EyeOff, ChevronRight, ChevronDown, Play, X, Shield, TrendingUp, Wallet } from 'lucide-react'
 
 const REELS_HOST = 'ktpl.kpoint.com'
 const vthumb = (id) => `https://${REELS_HOST}/media/data.ap-southeast-1.kpoint/ktpl.kpoint.in/ktpl.kpoint.com/kapsule/${id}/v4/i/vthumb.jpg`
@@ -46,7 +46,7 @@ function VideoOverlay({ videoId, title, onClose }) {
   )
 }
 
-function ShortsStrip({ reels, onPlay }) {
+function ShortsStrip({ reels }) {
   const containerRef = useRef(null)
   const playerRef = useRef(null)
   useEffect(() => {
@@ -67,14 +67,14 @@ function ShortsStrip({ reels, onPlay }) {
       <div ref={containerRef} />
       <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
         {reels.map((reel) => (
-          <div key={reel.id} onClick={() => open(reel.id)} className="group cursor-pointer flex-shrink-0" style={{ width: '130px' }}>
-            <div className="relative rounded-xl overflow-hidden" style={{ width: '130px', height: '210px', background: '#1a1a2e' }}>
-              <img src={vthumb(reel.id)} alt={reel.title} style={{ width: '130px', height: '210px', objectFit: 'cover' }}
+          <div key={reel.id} onClick={() => open(reel.id)} className="group cursor-pointer flex-shrink-0" style={{ width: '150px' }}>
+            <div className="relative rounded-xl overflow-hidden" style={{ width: '150px', height: '250px', background: '#1a1a2e' }}>
+              <img src={vthumb(reel.id)} alt={reel.title} style={{ width: '150px', height: '250px', objectFit: 'cover' }}
                 onError={e => { e.target.style.display = 'none' }} />
               <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/95 via-black/55 to-transparent pointer-events-none" />
               <span className="absolute top-2 right-2 bg-black/70 rounded px-1.5 py-0.5 text-[10px] text-white">{reel.duration}</span>
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="w-10 h-10 rounded-full bg-white/25 border-2 border-white/50 flex items-center justify-center group-hover:bg-ipru-orange group-hover:border-ipru-orange transition-all"><Play size={14} className="text-white ml-0.5" /></span>
+                <span className="w-11 h-11 rounded-full bg-white/25 border-2 border-white/50 flex items-center justify-center group-hover:bg-ipru-orange group-hover:border-ipru-orange transition-all"><Play size={16} className="text-white ml-0.5" /></span>
               </div>
               <p className="absolute bottom-2 left-2 right-2 text-white text-[11px] font-semibold leading-tight drop-shadow">{reel.title}</p>
             </div>
@@ -106,49 +106,44 @@ export default function LoginPage() {
     router.push('/portal')
   }
 
-  const heroVideos = featuredVideos.slice(0, 3)
+  const heroVideo = featuredVideos[0]
+  const moreVideos = featuredVideos.slice(1, 4)
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Top nav bar */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      {/* Nav */}
+      <header className="bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-14">
             <div className="flex items-center gap-2">
-              <div className="flex items-center">
-                <span className="text-ipru-blue font-extrabold text-xl tracking-tight">ICICI</span>
-                <span className="text-ipru-blue font-bold text-xl ml-1">Prudential</span>
-              </div>
-              <div className="flex flex-col items-start ml-1">
-                <span className="text-ipru-orange text-[9px] font-bold tracking-wider leading-none">LIFE INSURANCE</span>
-              </div>
+              <span className="text-ipru-blue font-extrabold text-xl tracking-tight">ICICI</span>
+              <span className="text-ipru-blue font-bold text-xl">Prudential</span>
+              <span className="text-ipru-orange text-[9px] font-bold tracking-wider ml-1">LIFE</span>
             </div>
             <nav className="hidden md:flex items-center gap-6">
-              <span className="text-sm text-gray-700 font-medium cursor-pointer hover:text-ipru-blue">Plans</span>
-              <span className="text-sm text-gray-700 font-medium cursor-pointer hover:text-ipru-blue">Fund Performance</span>
-              <span className="text-sm text-gray-700 font-medium cursor-pointer hover:text-ipru-blue">Claims</span>
-              <span className="text-sm text-gray-700 font-medium cursor-pointer hover:text-ipru-blue">Library</span>
-              <span className="text-sm text-gray-700 font-medium cursor-pointer hover:text-ipru-blue">Service</span>
-              <Link href="/academy" className="text-sm text-ipru-blue font-semibold cursor-pointer hover:text-ipru-orange">Academy</Link>
+              <span className="text-sm text-gray-600 cursor-pointer hover:text-ipru-blue">Plans</span>
+              <span className="text-sm text-gray-600 cursor-pointer hover:text-ipru-blue">Fund Performance</span>
+              <span className="text-sm text-gray-600 cursor-pointer hover:text-ipru-blue">Claims</span>
+              <Link href="/academy" className="text-sm text-ipru-blue font-semibold hover:text-ipru-orange">Academy</Link>
             </nav>
             <div className="relative">
               <button onClick={() => setShowLogin(!showLogin)}
-                className="flex items-center gap-1 bg-ipru-maroon text-white text-sm font-semibold px-5 py-2.5 rounded hover:bg-ipru-red transition-colors">
+                className="flex items-center gap-1 bg-ipru-maroon text-white text-sm font-semibold px-5 py-2 rounded hover:bg-ipru-red transition-colors">
                 Login <ChevronDown size={14} />
               </button>
               {showLogin && (
                 <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50">
-                  <div className="bg-ipru-maroon px-5 py-4">
-                    <h3 className="text-white font-bold text-lg">LOGIN AS CUSTOMER</h3>
+                  <div className="bg-ipru-maroon px-5 py-3">
+                    <h3 className="text-white font-bold">LOGIN AS CUSTOMER</h3>
                   </div>
-                  <form onSubmit={handleLogin} className="p-5 space-y-4">
+                  <form onSubmit={handleLogin} className="p-5 space-y-3">
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1.5 font-medium">Mobile Number / Email</label>
+                      <label className="block text-xs text-gray-500 mb-1 font-medium">Mobile / Email</label>
                       <input value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="Enter here"
                         className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-navy placeholder:text-gray-400 focus:outline-none focus:border-ipru-blue" />
                     </div>
                     <div>
-                      <label className="block text-xs text-gray-500 mb-1.5 font-medium">Password</label>
+                      <label className="block text-xs text-gray-500 mb-1 font-medium">Password</label>
                       <div className="relative">
                         <input type={showPwd ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)}
                           placeholder="Enter password"
@@ -174,196 +169,107 @@ export default function LoginPage() {
         </div>
       </header>
 
-      {/* Hero — product landing with featured video */}
-      <div className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #8B1A1A 0%, #B71C1C 30%, #F7941D 100%)' }}>
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.3), transparent 70%)' }} />
+      {/* Full-width video with overlaid product info */}
+      <div className="relative bg-black">
+        <div className="max-w-6xl mx-auto">
+          <div style={{ aspectRatio: '16/9' }}>
+            <GCCVideoPlayer key={heroVideo.gccId} videoId={heroVideo.gccId} />
+          </div>
         </div>
-        <div className="relative max-w-6xl mx-auto px-6 py-10 md:py-14">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <div className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full mb-3">
-                India&apos;s Leading Private Life Insurer
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(0,22,44,0.95) 0%, rgba(0,22,44,0.7) 40%, transparent 100%)' }}>
+          <div className="max-w-6xl mx-auto px-6 pb-5 pt-16 pointer-events-auto">
+            <div className="flex items-end justify-between">
+              <div>
+                <h1 className="text-white text-2xl md:text-3xl font-bold">iProtect Smart</h1>
+                <p className="text-white/50 text-sm mt-1">Term insurance &middot; Cover up to ₹2 Cr &middot; From ₹490/month</p>
               </div>
-              <h1 className="text-white text-3xl md:text-4xl font-bold leading-tight mb-3">
-                iProtect Smart
-              </h1>
-              <p className="text-white/80 text-base md:text-lg mb-4">
-                Pure term insurance with comprehensive coverage at an affordable premium.
-              </p>
-              <div className="flex items-center gap-4 mb-6">
-                {[
-                  { icon: <Shield size={16} />, label: 'Life Cover' },
-                  { icon: <Wallet size={16} />, label: 'Tax-free maturity' },
-                  { icon: <TrendingUp size={16} />, label: 'Market linked returns' },
-                ].map(item => (
-                  <div key={item.label} className="flex items-center gap-1.5 text-white/90 text-xs">
-                    <span className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center">{item.icon}</span>
-                    <span className="font-medium">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-3">
-                <button className="bg-white text-ipru-maroon font-bold text-sm px-6 py-3 rounded-lg hover:bg-gray-100 transition-colors">Talk to an Advisor</button>
-                <button className="border-2 border-white text-white font-bold text-sm px-6 py-3 rounded-lg hover:bg-white/10 transition-colors">Know More</button>
-              </div>
-            </div>
-            {/* Featured video card */}
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-              <div className="bg-ipru-darkblue px-4 py-2.5 flex items-center justify-between">
-                <span className="text-white text-sm font-bold">Watch & Understand</span>
-                <span className="text-ipru-orange text-xs font-semibold">Video Explainer</span>
-              </div>
-              <div onClick={() => play(heroVideos[0].gccId, heroVideos[0].title)}
-                className="relative cursor-pointer group" style={{ aspectRatio: '16/9' }}>
-                <img src={heroVideos[0].thumbnail} alt={heroVideos[0].title} className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="w-16 h-16 rounded-full bg-ipru-orange/90 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
-                    <Play size={24} className="text-white ml-1" />
-                  </span>
+              <div className="flex items-center gap-4">
+                <div className="hidden md:flex items-center gap-3">
+                  {[
+                    { icon: <Shield size={13} />, label: 'Life Cover' },
+                    { icon: <Wallet size={13} />, label: 'Tax Benefits' },
+                    { icon: <TrendingUp size={13} />, label: '97.8% Claims' },
+                  ].map(item => (
+                    <span key={item.label} className="flex items-center gap-1 text-white/50 text-xs">
+                      {item.icon} {item.label}
+                    </span>
+                  ))}
                 </div>
-                <div className="absolute bottom-3 left-4 right-4">
-                  <p className="text-white font-bold text-sm">{heroVideos[0].title}</p>
-                  <p className="text-white/60 text-xs mt-0.5">{heroVideos[0].duration} min</p>
-                </div>
-              </div>
-              <div className="p-3 flex gap-2">
-                {heroVideos.slice(1).map(v => (
-                  <div key={v.id} onClick={() => play(v.gccId, v.title)}
-                    className="flex-1 relative rounded-lg overflow-hidden cursor-pointer group" style={{ aspectRatio: '16/9' }}>
-                    <img src={v.thumbnail} alt={v.title} className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center"><Play size={10} className="text-white ml-0.5" /></span>
-                    </div>
-                    <p className="absolute bottom-1.5 left-2 right-2 text-white text-[10px] font-semibold leading-tight">{v.title}</p>
-                  </div>
-                ))}
+                <button className="bg-ipru-orange text-white font-bold text-sm px-6 py-2.5 rounded-lg hover:bg-amber-500 transition-colors">Talk to an Advisor</button>
+                <button className="border border-white/30 text-white font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-white/10 transition-colors">Know More</button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Benefits strip */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { icon: '🛡️', label: 'Life Cover', desc: 'Up to ₹2 Cr protection' },
-              { icon: '💸', label: 'Save up to ₹3.77L', desc: 'In tax benefits' },
-              { icon: '📊', label: 'Fund Performance', desc: 'Track your investments' },
-              { icon: '📋', label: 'Easy Claims', desc: '97.8% settlement ratio' },
-            ].map(item => (
-              <div key={item.label} className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                <span className="text-xl">{item.icon}</span>
-                <div>
-                  <p className="text-sm font-bold text-navy">{item.label}</p>
-                  <p className="text-xs text-gray-400">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Product overview + video carousel */}
-      <div className="bg-gray-50 py-8">
+      {/* Watch to know more — 3 video cards */}
+      <div className="bg-white py-6">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            <div className="lg:col-span-2">
-              <h2 className="text-xl font-bold text-navy mb-2">iProtect Smart — Term Life Insurance</h2>
-              <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                Secure your family&apos;s future with India&apos;s most trusted term plan. Get life cover up to ₹2 Crore at affordable premiums starting ₹490/month. With a 97.8% claim settlement ratio, your family is in safe hands.
-              </p>
-              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /><span className="text-gray-600">Entry age: 18–65 years</span></div>
-                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /><span className="text-gray-600">Cover up to ₹2 Cr</span></div>
-                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /><span className="text-gray-600">Tax benefits under 80C & 10(10D)</span></div>
-                <div className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-green-500" /><span className="text-gray-600">Critical illness rider available</span></div>
-              </div>
-            </div>
-            <div className="bg-white rounded-xl border border-gray-200 p-5 flex flex-col justify-center">
-              <p className="text-gray-400 text-xs mb-1">Starting from</p>
-              <p className="text-navy text-2xl font-bold">₹490<span className="text-sm font-normal text-gray-400">/month</span></p>
-              <p className="text-gray-400 text-xs mt-1 mb-4">For ₹1 Cr cover, age 25, non-smoker</p>
-              <button className="w-full bg-ipru-maroon text-white font-bold text-sm py-2.5 rounded-lg hover:bg-ipru-red transition-colors">Talk to an Advisor</button>
-            </div>
-          </div>
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-bold text-navy">All Videos</h3>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-navy">Watch to know more</h2>
             <Link href="/academy" className="text-ipru-orange text-sm font-semibold hover:underline flex items-center gap-1">
-              View all <ChevronRight size={14} />
+              Explore Academy <ChevronRight size={14} />
             </Link>
           </div>
-          <div className="flex gap-4 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
-            {featuredVideos.map(v => (
-              <div key={v.id} onClick={() => play(v.gccId, v.title)} className="group cursor-pointer flex-shrink-0" style={{ width: '240px' }}>
+          <div className="grid grid-cols-3 gap-5">
+            {moreVideos.map(v => (
+              <div key={v.id} onClick={() => play(v.gccId, v.title)} className="group cursor-pointer">
                 <div className="relative rounded-xl overflow-hidden" style={{ aspectRatio: '16/9' }}>
                   <img src={v.thumbnail} alt={v.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <span className={`absolute top-2 left-2 text-[10px] font-bold px-2 py-0.5 rounded ${v.tagColor}`}>{v.tag}</span>
                   <span className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-0.5 rounded">{v.duration}</span>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="w-12 h-12 rounded-full bg-ipru-orange/90 flex items-center justify-center shadow-xl"><Play size={18} className="text-white ml-0.5" /></span>
+                    <span className="w-14 h-14 rounded-full bg-ipru-orange/90 flex items-center justify-center shadow-xl"><Play size={20} className="text-white ml-0.5" /></span>
                   </div>
                 </div>
-                <h3 className="text-xs font-semibold text-navy leading-snug mt-2 group-hover:text-ipru-maroon transition-colors">{v.title}</h3>
+                <h3 className="text-sm font-semibold text-navy leading-snug mt-2 group-hover:text-ipru-maroon transition-colors">{v.title}</h3>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Shorts section */}
-      <div className="bg-white py-8">
+      {/* Benefits Explained — shorts */}
+      <div className="bg-gray-50 py-6">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <span className="bg-ipru-maroon text-white text-xs font-bold px-2 py-0.5 rounded flex items-center gap-1"><Play size={10} /> Shorts</span>
-              <h2 className="text-lg font-bold text-navy">Quick Insurance Bites</h2>
+              <h2 className="text-lg font-bold text-navy">Benefits Explained</h2>
             </div>
             <Link href="/academy" className="text-ipru-orange text-sm font-semibold hover:underline flex items-center gap-1">
-              More shorts <ChevronRight size={14} />
+              More <ChevronRight size={14} />
             </Link>
           </div>
-          <ShortsStrip reels={shortReels} onPlay={play} />
+          <ShortsStrip reels={shortReels} />
         </div>
       </div>
 
-      {/* Academy promo banner */}
+      {/* Academy banner */}
       <div className="max-w-6xl mx-auto px-6 py-6">
         <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(135deg, #002244 0%, #003B71 100%)' }}>
-          <div className="p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="p-6 flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="bg-ipru-orange text-white text-xs font-bold px-2.5 py-1 rounded">NEW</span>
-                <span className="text-white/60 text-xs font-semibold uppercase tracking-wider">Learning Hub</span>
-              </div>
-              <h2 className="text-white text-xl font-bold mb-1">ICICI Prudential Academy</h2>
-              <p className="text-white/60 text-sm max-w-md">
-                India&apos;s first interactive video-learning hub for life insurance.
-              </p>
+              <h2 className="text-white text-lg font-bold">ICICI Prudential Academy</h2>
+              <p className="text-white/50 text-sm">Video-first learning hub for life insurance</p>
             </div>
-            <Link href="/academy" className="group inline-flex flex-col items-center gap-1">
-              <span className="inline-flex items-center gap-2 bg-ipru-orange text-white font-bold text-sm px-6 py-3 rounded-lg hover:bg-amber-500 transition-colors">
-                Visit Academy <ChevronRight size={16} />
-              </span>
-              <span className="text-white/40 text-[10px]">New to insurance? Learn before you buy</span>
+            <Link href="/academy" className="inline-flex items-center gap-2 bg-ipru-orange text-white font-bold text-sm px-6 py-2.5 rounded-lg hover:bg-amber-500 transition-colors">
+              Visit Academy <ChevronRight size={16} />
             </Link>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-gray-200 py-5 px-6">
+      <footer className="mt-auto border-t border-gray-200 py-4 px-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-ipru-blue font-extrabold text-sm">ICICI Prudential</span>
             <span className="text-ipru-orange text-[8px] font-bold tracking-wider">LIFE INSURANCE</span>
           </div>
-          <span className="text-xs text-gray-400">IRDAI Reg. No. 105 | CIN: L66010MH2000PLC127837</span>
+          <span className="text-xs text-gray-400">IRDAI Reg. No. 105</span>
         </div>
       </footer>
 

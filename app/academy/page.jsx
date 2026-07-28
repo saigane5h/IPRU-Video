@@ -108,37 +108,101 @@ function VideoCard({ video, onPlay }) {
   )
 }
 
+function PolicyVideoCard({ policy, onPlay }) {
+  const [playing, setPlaying] = useState(false)
+  const typeColor = policy.type === 'TERM' ? 'bg-blue-500' : 'bg-green-500'
+  if (playing) {
+    return (
+      <div className="rounded-xl overflow-hidden" style={{ aspectRatio: '16/9' }}>
+        <GCCVideoPlayer key={policy.gccId} videoId={policy.gccId} />
+      </div>
+    )
+  }
+  return (
+    <div className="relative rounded-xl overflow-hidden cursor-pointer group" style={{ minHeight: '200px' }} onClick={() => setPlaying(true)}>
+      <img src={vthumb(policy.gccId)} alt={policy.planName} className="absolute inset-0 w-full h-full object-cover"
+        onError={e => { e.target.style.display = 'none' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,15,35,0.95) 0%, rgba(0,15,35,0.7) 50%, rgba(0,15,35,0.35) 100%)' }} />
+      <div className="relative p-4 flex flex-col justify-between h-full" style={{ minHeight: '200px' }}>
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-2">
+            <span className="bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">{policy.status}</span>
+            <span className={`${typeColor} text-white text-[10px] font-bold px-2 py-0.5 rounded-full`}>{policy.type}</span>
+          </div>
+          <span className="w-10 h-10 rounded-full bg-ipru-orange flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+            <Play size={16} className="text-white ml-0.5" />
+          </span>
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-base mb-2">{policy.planName}</h3>
+          <div className="grid grid-cols-2 gap-2 mb-2">
+            <div><p className="text-white/40 text-[10px]">Sum Assured</p><p className="text-white font-bold text-sm">{policy.sumAssured}</p></div>
+            <div><p className="text-white/40 text-[10px]">Premium</p><p className="text-white font-semibold text-sm">{policy.premium}/{policy.premiumCadence}</p></div>
+          </div>
+          <span className="text-ipru-orange text-xs font-semibold">▶ Watch your plan explained in 3 min</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function YourPoliciesSection({ onPlay }) {
   return (
     <section className="py-5 px-4">
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center gap-2 mb-1">
+        <div className="flex items-center gap-2 mb-3">
           <Shield size={18} className="text-ipru-maroon" />
           <h2 className="text-lg font-bold text-navy">Your Policies</h2>
         </div>
-        <p className="text-gray-400 text-xs mb-4">Watch video explainers for each of your active plans</p>
         <div className="grid gap-4 sm:grid-cols-2">
-          {portalPolicies.map(p => (
-            <div key={p.id} className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg transition-shadow">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <span className="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded-full mb-1">{p.status}</span>
-                  <h3 className="text-navy font-bold text-sm">{p.planName}</h3>
-                </div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${p.type === 'TERM' ? 'text-blue-600 bg-blue-50 border-blue-200' : 'text-green-600 bg-green-50 border-green-200'}`}>{p.type}</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2 text-sm mb-3">
-                <div><p className="text-gray-400 text-xs">Sum Assured</p><p className="text-navy font-bold">{p.sumAssured}</p></div>
-                <div><p className="text-gray-400 text-xs">Premium</p><p className="text-navy font-semibold">{p.premium}/{p.premiumCadence}</p></div>
-              </div>
-              <button onClick={() => onPlay(p.gccId, p.planName)} className="w-full flex items-center justify-center gap-2 bg-ipru-maroon/5 hover:bg-ipru-maroon/10 text-ipru-maroon text-sm font-semibold py-2.5 rounded-lg transition-colors">
-                <Play size={14} /> How are your funds performing
-              </button>
-            </div>
-          ))}
+          {portalPolicies.map(p => <PolicyVideoCard key={p.id} policy={p} onPlay={onPlay} />)}
         </div>
       </div>
     </section>
+  )
+}
+
+function CoverageGapCard({ gap, onPlay }) {
+  const [playing, setPlaying] = useState(false)
+  return (
+    <div className="relative rounded-xl overflow-hidden" style={{ minHeight: '220px' }}>
+      {playing ? (
+        <div style={{ aspectRatio: '16/9' }}>
+          <GCCVideoPlayer key={gap.gccId} videoId={gap.gccId} />
+        </div>
+      ) : (
+        <>
+          <img src={vthumb(gap.gccId)} alt={gap.category} className="absolute inset-0 w-full h-full object-cover"
+            onError={e => { e.target.style.display = 'none' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,15,35,0.95) 0%, rgba(0,15,35,0.7) 50%, rgba(0,15,35,0.3) 100%)' }} />
+          <div className="relative p-4 flex flex-col justify-between h-full" style={{ minHeight: '220px' }}>
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">{gap.icon}</span>
+                <div>
+                  <h3 className="text-white font-bold text-sm">{gap.category}</h3>
+                  <span className="text-red-400 text-[10px] font-semibold">Not covered</span>
+                </div>
+              </div>
+              <button onClick={() => setPlaying(true)}
+                className="w-10 h-10 rounded-full bg-ipru-orange flex items-center justify-center shadow-lg hover:scale-110 transition-transform flex-shrink-0">
+                <Play size={16} className="text-white ml-0.5" />
+              </button>
+            </div>
+            <div>
+              <p className="text-white/60 text-xs mb-2 leading-relaxed">{gap.desc}</p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-ipru-orange text-xs font-semibold">{gap.product}</p>
+                  <p className="text-white/40 text-[10px]">{gap.premium}</p>
+                </div>
+                <span className="text-white/30 text-[10px]">▶ Watch & Learn</span>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   )
 }
 
@@ -152,25 +216,7 @@ function CoverageGapSection({ onPlay }) {
         </div>
         <p className="text-gray-400 text-xs mb-4">Areas where you may need additional protection</p>
         <div className="grid gap-4 sm:grid-cols-3">
-          {coverageGaps.map(gap => (
-            <div key={gap.category} className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-lg transition-shadow">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-2xl">{gap.icon}</span>
-                <div>
-                  <h3 className="text-navy font-bold text-sm">{gap.category}</h3>
-                  <span className="text-red-500 text-[10px] font-semibold">Not covered</span>
-                </div>
-              </div>
-              <p className="text-gray-600 text-xs mb-3 leading-relaxed">{gap.desc}</p>
-              <div className="bg-ipru-lightblue rounded-lg p-3 mb-3">
-                <p className="text-ipru-blue text-xs font-semibold">{gap.product}</p>
-                <p className="text-ipru-blue/60 text-[10px]">{gap.premium}</p>
-              </div>
-              <button onClick={() => onPlay(gap.gccId, gap.title)} className="w-full flex items-center justify-center gap-2 text-ipru-maroon text-xs font-semibold py-2 rounded-lg border border-ipru-maroon/20 hover:bg-ipru-maroon/5 transition-colors">
-                <Play size={12} /> Watch & Learn
-              </button>
-            </div>
-          ))}
+          {coverageGaps.map(gap => <CoverageGapCard key={gap.category} gap={gap} onPlay={onPlay} />)}
         </div>
       </div>
     </section>
