@@ -139,7 +139,7 @@ function PolicyVideoCard({ policy, onPlay }) {
             <div><p className="text-white/40 text-[10px]">Sum Assured</p><p className="text-white font-bold text-sm">{policy.sumAssured}</p></div>
             <div><p className="text-white/40 text-[10px]">Premium</p><p className="text-white font-semibold text-sm">{policy.premium}/{policy.premiumCadence}</p></div>
           </div>
-          <span className="text-ipru-orange text-xs font-semibold">▶ Watch your plan explained in 3 min</span>
+          <span className="text-ipru-orange text-xs font-semibold">▶ See how your cover is working for you</span>
         </div>
       </div>
     </div>

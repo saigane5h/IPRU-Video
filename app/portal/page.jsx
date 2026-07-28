@@ -171,7 +171,7 @@ function PolicyCard({ policy, onPlay }) {
               </div>
               <div className="flex items-center justify-between">
                 <button className="text-ipru-orange text-xs font-semibold hover:underline">View Details</button>
-                <span className="text-white/30 text-[10px]">▶ Watch your plan explained in 3 min</span>
+                <span className="text-white/30 text-[10px]">▶ See how your cover is working for you</span>
               </div>
             </div>
           </div>
@@ -336,8 +336,8 @@ function PortalDashboard() {
         </div>
 
         {/* Alerts + Shorts row */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
+          <div>
             <AlertsSection />
           </div>
           <div className="bg-white rounded-xl border border-gray-200 p-5">
