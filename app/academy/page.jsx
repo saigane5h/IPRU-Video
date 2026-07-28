@@ -414,10 +414,10 @@ export default function AcademyPage() {
         </section>
       )}
 
-      {/* Non-logged-in: Browse by series */}
+      {/* Non-logged-in: Browse by guide */}
       {!isLoggedIn && (<section className="py-5 px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-lg font-bold text-navy mb-3">Browse by Series</h2>
+          <h2 className="text-lg font-bold text-navy mb-3">Browse by Guide</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {videoSeries.map(series => (
               <div key={series.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
